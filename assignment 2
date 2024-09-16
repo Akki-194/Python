@@ -1,0 +1,27 @@
+
+import re
+import base64
+
+class LifeTelVerification:
+    def __init__(self, reference_id):
+        self.reference_id = reference_id
+
+    def is_valid_reference_id(self):
+        pattern = r'^[A-Za-z0-9]{12}$'
+        return bool(re.match(pattern, self.reference_id))
+
+    def encrypt_reference_id(self):
+        reference_id_bytes = self.reference_id.encode('utf-8')
+        encrypted_reference_id = base64.b64encode(reference_id_bytes).decode('utf-8')
+        return encrypted_reference_id
+
+if __name__ == "__main__":
+    reference_id = input("Enter Reference ID (12 alphanumeric characters): ")
+    verification = LifeTelVerification(reference_id)
+
+    if verification.is_valid_reference_id():
+        print("Reference ID is valid.")
+        encrypted_reference_id = verification.encrypt_reference_id()
+        print(f"Encrypted Reference ID: {encrypted_reference_id}")
+    else:
+        print("Invalid Reference ID. It must be exactly 12 characters long and contain only alphabets and numbers.")
