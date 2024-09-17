@@ -1,0 +1,144 @@
+ Question 1
+ Write a Python program to create a class representing a stack data structure. 
+ Include methods for pushing and popping elements.
+
+class Stack:
+  def __init__(self, limit=5):
+    self.element = []
+    self.limit = limit
+
+  def push(self, element):
+    if len(self.element) < self.limit:
+      self.element.append(element)
+    else:
+      print("Stack Overflow")
+
+  def pop(self):
+    if len(self.element) > 0:
+      return self.element.pop()
+    else:
+      print("Stack Underflow: No elements to pop")
+
+# Example what we can use
+obj = Stack()
+obj.push(12)
+obj.push(23)
+print(obj.element)  
+obj.pop()
+print(obj.element)  
+
+
+ Question 2
+ Write a Python program to create a class representing a linked list data structure. 
+ Include methods for displaying linked list data, inserting and deleting nodes.
+
+class Node:
+  def __init__(self, data=None):
+    self.data = data
+    self.next = None
+
+class LinkedList:
+  def __init__(self):
+    self.head = None
+
+  def display(self):
+    temp = self.head
+    while temp:
+      print(temp.data, end=" ")
+      temp = temp.next
+    print()
+
+  def insert_at_beginning(self, new_data):
+    new_node = Node(new_data)
+    new_node.next = self.head
+    self.head = new_node
+
+  def insert_after(self, prev_node, new_data):
+    if prev_node is None:
+      print("The given previous node must be in LinkedList.")
+      return
+    new_node = Node(new_data)
+    new_node.next = prev_node.next
+    prev_node.next = new_node
+
+  def insert_at_end(self, new_data):
+    new_node = Node(new_data)
+    if self.head is None:
+      self.head = new_node
+      return
+    last_node = self.head
+    while last_node.next:
+      last_node = last_node.next
+    last_node.next = new_node
+
+  def delete_node(self, key):
+    temp = self.head
+
+    if temp is not None:
+      if temp.data == key:
+        self.head = temp.next
+        return
+
+    while temp is not None:
+      if temp.next and temp.next.data == key:
+        temp.next = temp.next.next
+        return
+      temp = temp.next
+
+# Example what we can use
+llist = LinkedList()
+llist.insert_at_beginning(8)
+llist.insert_at_beginning(9)
+llist.insert_at_beginning(6)
+llist.insert_at_end(10)
+llist.insert_after(llist.head.next, 5)
+print("Linked list:")
+llist.display()
+print("After deleting an element:")
+llist.delete_node(8)
+llist.display()
+
+
+
+ Question 3
+ Write a Python program to create a class representing a shopping cart. 
+ Include methods for adding and removing items, and calculating the total price.
+
+
+
+
+class ShoppingCart:
+  def __init__(self):
+    self.item = []
+    self.price = []
+
+  def add_items(self, items, prices):
+    self.item.append(items)
+    self.price.append(prices)
+
+  def remove_items(self, items):
+    if items in self.item:
+      item_index = self.item.index(items)
+      self.item.remove(items)
+      del self.price[item_index]
+
+  def total_price(self):
+    total_price = sum(self.price)
+    return total_price
+
+# Example how we can do operations
+cart = ShoppingCart()
+cart.add_items("Apple", 3)
+cart.add_items("Banana", 2)
+cart.add_items("Orange", 4)
+
+print("Items in the cart:", cart.item)
+print("Total price:", cart.total_price())
+
+cart.remove_items("Banana")
+print("Items in the cart after removal:", cart.item)
+print("Total price after removal:", cart.total_price())
+
+
+
+
